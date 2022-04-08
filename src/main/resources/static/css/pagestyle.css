@@ -1,0 +1,14 @@
+div.header {
+    background-color: orange;
+    height: 75px;
+}
+
+div.header h3 {
+    position: relative;
+    top: 50%;
+    margin-left: 10px;
+}
+
+button {
+    background-color: orange;
+}
