@@ -1,6 +1,6 @@
 // Makes a request to generate a class meeting
 function generateClassMeeting() {
-    var classid = document.forms["genClassForm"]["classid"];
+    var classid = document.forms["genClassForm"]["sectionid"];
     var duration = document.forms["genClassForm"]["duration"];
 
     console.log(duration.value);
