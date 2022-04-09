@@ -1,6 +1,28 @@
 <!DOCTYPE HTML>
 <html>
+    <head>
+        <link href="css\pagestyle.css" rel="stylesheet" type="text/css"/>
+        <link href="css\generateclassmeeting.css" rel="stylesheet" type="text/css"/>
+        <script src="js\generateclassmeeting.js" rel="script" type="text/javascript"></script>
+    </head>
 <body>
-    <p>Hello, generate a class meeting here!</p>
+    <div class="header">
+        <h3>Attendance Tracker</h3>
+    </div>
+    <div>
+        <h4>Generate Class Meeting</h4>
+        <p style="color: red" id="formerror"></p>
+        <form name="genClassForm" action="/generatemeeting" onsubmit="return generateClassMeeting()">
+            <label for="sectionid">Section ID</label>
+            <br/>
+            <input id="sectionid" name="sectionid" type="text"/>
+            <br/>
+            <label for="duration">Duration</label>
+            <br/>
+            <input id="duration" name="duration" type="number"/>
+            <br/>
+            <button type="submit">Generate</button>
+        </form>
+    </div>
 </body>
 </html>
