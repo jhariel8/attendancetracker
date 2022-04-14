@@ -1,0 +1,9 @@
+insert into Class values(1, 'Principles of Math');
+insert into Class values(2, 'Biology I');
+insert into Class values(3, 'Operating Systems');
+
+insert into Section values(123, 'A', 1);
+insert into Section values(122, 'B', 1);
+insert into Section values(121, 'A', 2);
+insert into Section values(120, 'A', 3);
+insert into Section values(119, 'B', 3);

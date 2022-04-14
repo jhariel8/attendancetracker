@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,7 +15,7 @@ import javax.persistence.ManyToOne;
 public class ClassMeeting {
     
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
     private Timestamp timestamp;
@@ -49,5 +50,7 @@ public class ClassMeeting {
         this.duration = duration;
     }
 
-
+    public Integer getId() {
+        return id;
+    }
 }

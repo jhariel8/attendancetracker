@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link href="css\pagestyle.css" rel="stylesheet" type="text/css"/>
+        <link href="css\qrcodepage.css" rel="stylesheet" type="text/css"/>
+        <script src="js\qrcodepage.js" rel="script" type="text/javascript"></script>
+    </head>
+<body>
+    <div class="header">
+        <h3>Attendance Tracker</h3>
+    </div>
+    <div>
+        <h4>Class Meeting QR Code</h4>
+        <div class="imgholder">
+            <img th:attr="src=${qrcode}"/>
+        </div>
+        <div class="info">
+            <h5>Class Info</h5>
+            <p th:text="'Section ID: ' + ${classmeeting.getSectionId().id}"></p>
+            <p th:text="'Class Meeting ID: ' + ${classmeeting.id}"></p>
+            <form action="/classmeeting" method="GET">
+                <button type="submit">Generate a new meeting</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
