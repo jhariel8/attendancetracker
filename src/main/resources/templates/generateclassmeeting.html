@@ -11,7 +11,7 @@
     </div>
     <div>
         <h4>Generate Class Meeting</h4>
-        <p style="color: red" id="formerror"></p>
+        <p style="color: red" id="formerror" th:text="${error}"></p>
         <form name="genClassForm" action="/generatemeeting" onsubmit="return generateClassMeeting()">
             <label for="sectionid">Section ID</label>
             <br/>
