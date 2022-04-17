@@ -1,0 +1,10 @@
+<form id="loginForm" method="post">
+	<div id="loginFormWrapper">
+		<div class="title">LOGIN PORTAL</div>
+		<div class="name">Username:</div><input type="text" name="username"/>
+		<div class="name">Password:</div><input type="password" name="password"/>
+		<div class="name"></div><input type="submit" value="Login"/>
+		<div class="error" th:if="${error}" th:text="${error}"></div>
+	</div>
+</form>
+

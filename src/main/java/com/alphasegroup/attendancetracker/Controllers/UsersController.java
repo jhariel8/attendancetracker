@@ -33,11 +33,10 @@ public class UsersController {
 		User user = (User)request.getSession().getAttribute("user");
 		if(user == null){
 			System.out.println("No session.");
-			return "users/login.html";
 		}else{
 			System.out.println("Has session.");
-			return redirectToUserType(user, model);
 		}
+		return setPageComponentUserType(user, model);
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
@@ -46,29 +45,26 @@ public class UsersController {
 	@RequestParam(name="password", required=true) String password,
 	Model model,
 	HttpServletRequest request){
+		User user = null;
 		List<User> users = userRepository.findByUsernameAndPassword(username, password);
 		if(users.size() > 0){
 			System.out.println("Login successfully");
-			
-			User user = users.get(0);
+			user = users.get(0);
 			request.getSession().setAttribute("user", user);
-			return redirectToUserType(user, model);
+		}else{	
+			System.out.println("Login failed!");
+			model.addAttribute("error", "Incorrect username or password!");
 		}
-		
-		System.out.println("Login failed!");
-		return "users/login.html";
+		return setPageComponentUserType(user, model);
 	}
 	
-	private String redirectToUserType(User user, Model model){
-		model.addAttribute("user", user);
-		String userType = user.getType();
-		if(userType == "student"){
-			return "users/student.html";
-		}else if(userType == "teacher"){
-			return "users/teacher.html";
-		}else if(userType == "admin"){
-			return "users/admin.html";
+	private String setPageComponentUserType(User user, Model model){
+		if(user == null){
+			model.addAttribute("component", "login.html");
+		}else{
+			model.addAttribute("user", user);
+			model.addAttribute("component", "user/" + user.getType() + ".html");
 		}
-		return "";
+		return "main.html";
 	}
 }
