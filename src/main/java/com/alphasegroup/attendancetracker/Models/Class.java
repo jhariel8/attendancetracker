@@ -10,10 +10,24 @@ public class Class {
     @GeneratedValue
     private Integer id;
 
+	private Integer teacherId;
+	
     private String name;
 
+	public Integer getId() {
+        return this.id;
+    }
+	
+	public Integer getTeacherId() {
+        return this.teacherId;
+    }
+	
+	public void setTeacherId(Integer teacherId) {
+        this.teacherId = teacherId;
+    }
+	
     public String getName() {
-        return name;
+        return this.name;
     }
     
     public void setName(String name) {

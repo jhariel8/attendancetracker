@@ -1,2 +1,13 @@
 <div th:text="'Welcome admin, ' + ${user.getName()} + '!'"></div>
-<div>Do admin stuffs here...</div>
+
+<form method="post" action="/admin/addClass">
+	Class Name:
+	<input type="text" name="className"/>
+	Teacher:
+	<select name="teacherId">
+	   <option th:each="teacher: ${teachers}" th:value="${teacher.getId()}" th:text="${teacher.getName()}+'  (ID:'+${teacher.getId()}+')'">Volvo</option>
+	</select>
+	Student IDs (separated by line):
+	<textarea name="studentIds"></textarea>
+	<input type="submit" value="Add Class"/>
+</form>

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class UsersController {
+public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
@@ -64,6 +64,10 @@ public class UsersController {
 		}else{
 			model.addAttribute("user", user);
 			model.addAttribute("component", "user/" + user.getType() + ".html");
+			if(user.getType()=="admin"){
+				List<User> teachers = userRepository.findByType("teacher");
+				model.addAttribute("teachers", teachers);
+			}
 		}
 		return "main.html";
 	}
