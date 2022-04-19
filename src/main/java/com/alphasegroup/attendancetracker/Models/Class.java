@@ -3,6 +3,8 @@ package com.alphasegroup.attendancetracker.Models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Class {
@@ -10,7 +12,9 @@ public class Class {
     @GeneratedValue
     private Integer id;
 
-	private Integer teacherId;
+	@ManyToOne
+    @JoinColumn(name="teacherId")
+	private User teacher;
 	
     private String name;
 
@@ -18,12 +22,12 @@ public class Class {
         return this.id;
     }
 	
-	public Integer getTeacherId() {
-        return this.teacherId;
+	public User getTeacher() {
+        return this.teacher;
     }
 	
-	public void setTeacherId(Integer teacherId) {
-        this.teacherId = teacherId;
+	public void setTeacher(User teacher) {
+        this.teacher = teacher;
     }
 	
     public String getName() {

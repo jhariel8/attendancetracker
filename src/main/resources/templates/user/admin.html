@@ -1,5 +1,10 @@
 <div th:text="'Welcome admin, ' + ${user.getName()} + '!'"></div>
 
+
+<div th:each="class: ${classes}" th:text="${class.getName()}+'  (Teacher: '+${class.getTeacher().getName()}+')'"></div>
+	
+	
+	
 <form method="post" action="/admin/addClass">
 	Class Name:
 	<input type="text" name="className"/>

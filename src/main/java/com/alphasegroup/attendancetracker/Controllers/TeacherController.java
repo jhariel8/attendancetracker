@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class AdminController {
+public class TeacherController {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -36,38 +36,17 @@ public class AdminController {
 	private ClassRepository classRepository;
 
 	
-	@RequestMapping(value="/admin/addClass", method=RequestMethod.POST)
+	@RequestMapping(value="/teacher/addMeeting", method=RequestMethod.POST)
 	public String generateClassMeeting(
-	@RequestParam(name="className", required=true) String className,
-	@RequestParam(name="teacherId", required=true) Integer teacherId,
-	@RequestParam(name="studentIds", required=true) String studentIds,
+	//@RequestParam(name="className", required=true) String className,
+	//@RequestParam(name="teacherId", required=true) Integer teacherId,
+	//@RequestParam(name="studentIds", required=true) String studentIds,
 	Model model,
 	HttpServletRequest request){
 		User user = (User)request.getSession().getAttribute("user");
-		if(user==null || user.getType().equals("admin") == false) return "redirect:/error";
+		if(user==null || user.getType().equals("teacher") == false) return "redirect:/error";
 		
-		User teacher = userRepository.findById(teacherId).get();
-		
-		Class newClass = new Class();
-		newClass.setName(className);
-		newClass.setTeacher(teacher);
-		classRepository.save(newClass);
-		
-		Integer classId = newClass.getId();
-		String[] arrStudentIds = studentIds.split("\n");
-		
-		if(arrStudentIds.length > 0){
-			for (String studentId : arrStudentIds){
-				System.out.println(studentId.strip());
-				
-				User student = userRepository.findById(new Integer(Integer.parseInt(studentId.strip()))).get();
-				if(student.getType().equals("student")){
-					UserClass userClass = new UserClass(student,newClass);
-					userClassRepository.save(userClass);
-				}
-			}
-		}
-		return "redirect:/";
+		//do stuffs here
 	}
 	
 }
