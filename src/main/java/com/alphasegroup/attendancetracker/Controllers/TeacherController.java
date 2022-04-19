@@ -47,6 +47,7 @@ public class TeacherController {
 		if(user==null || user.getType().equals("teacher") == false) return "redirect:/error";
 		
 		//do stuffs here
+		return "redirect:/error";
 	}
 	
 }
