@@ -1,0 +1,15 @@
+<div th:text="'Welcome teacher, ' + ${user.getName()} + '!'"></div>
+<div>Do teacher stuffs here...</div>
+
+
+<div>
+	<div th:each="class: ${classes}">
+		Name: <p th:text="${class.getName()}"></p>
+		Id: <p th:text="${class.getId()}"></p>
+		
+		<form method="post" action="/teacher/addMeeting">
+			<input type="hidden" name="classId" th:value="${class.getId()}"/>
+			<input type="submit" value="add meeting"/>
+		</form>
+	</div>
+</div>
