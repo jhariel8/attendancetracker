@@ -12,9 +12,14 @@ import java.net.http.HttpResponse;
 public class qrCodeServiceImpl implements qrCodeService {
 
     @Override
-    public HttpResponse<byte[]> generate(URI uri) throws IOException, InterruptedException {
+    public HttpResponse<byte[]> generate(String uri) throws IOException, InterruptedException {
+        URI fin = null;
+		try {
+			fin = new URI(uri);
+		}
+		catch(Exception e) {}
         HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder().uri(uri).build();
+        HttpRequest request = HttpRequest.newBuilder().uri(fin).build();
         HttpResponse<byte[]> responseOfByteArray = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
         return responseOfByteArray;
     }
