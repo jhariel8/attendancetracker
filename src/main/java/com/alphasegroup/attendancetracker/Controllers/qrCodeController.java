@@ -20,7 +20,7 @@ public class qrCodeController {
     @GetMapping("qr-code")
     public ResponseEntity<HttpResponse<byte[]>> getQrCode(URI uri) throws IOException, InterruptedException {
 
-        HttpResponse<byte[]> qrImage = qrCodeService.generate(uri);
+        HttpResponse<byte[]> qrImage = qrCodeService.generate(uri.toString());
 
         return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(qrImage);
     }
