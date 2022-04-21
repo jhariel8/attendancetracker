@@ -6,8 +6,10 @@ import java.time.Instant;
 import com.alphasegroup.attendancetracker.DataAccess.ClassMeetingRepository;
 import com.alphasegroup.attendancetracker.Models.ClassMeeting;
 import com.alphasegroup.attendancetracker.Models.Section;
+import com.alphasegroup.attendancetracker.Services.qrCodeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,10 +51,11 @@ public class ClassMeetingController {
 		String uri = "https://api.qrserver.com/v1/create-qr-code/?" +
 					"size=200x200&data=www.google.com";
 		// URI fin = null;
-		// try {
-		// 	fin = new URI(uri);
-		// }
-		// catch(Exception e) {}
+		//try {
+		//	fin = new URI(uri);
+		//}
+		//catch(Exception e) {}
+		
 
 		// HttpClient http = HttpClient.newHttpClient();
 		// HttpRequest httpReq = HttpRequest.newBuilder().GET().uri(fin).build();
