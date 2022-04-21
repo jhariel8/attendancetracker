@@ -55,7 +55,6 @@ public class ClassMeetingController {
 		//	fin = new URI(uri);
 		//}
 		//catch(Exception e) {}
-		SpringApplication.run(qrCodeService.class, uri);
 		
 
 		// HttpClient http = HttpClient.newHttpClient();
