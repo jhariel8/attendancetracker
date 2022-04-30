@@ -1,0 +1,17 @@
+<div id="dashboard">
+	<table id="table">
+		<tr class="row">
+			<th>Timestamp</th>
+			<th>Number of Students Attended</th>
+			<th>Percentage of Students Attended</th>
+			<th>Actions</th>
+		</tr>
+		<tr class="row" th:each="classMeeting: ${classMeetings}">
+			<td th:text="${classMeeting.getId()}"></td>
+			<td th:text="${classMeetingAttendedCount.get(classMeeting)} + '/' + ${studentCount}"></td>
+			<td th:text="${classMeetingAttendedPercentage.get(classMeeting)} + '%'"></td>
+			<td><a th:href="'/dashboardClassMeeting?classId=' + ${classMeeting.getMyClass().getId()} + '&classMeetingId=' + ${classMeeting.getId()}">Detail</a></td>
+		</tr>
+		
+	</table>
+</div>

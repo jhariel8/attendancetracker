@@ -1,0 +1,15 @@
+<div id="dashboard">
+	<table id="table">
+		<tr class="row">
+			<th>Student</th>
+			<th>Attended</th>
+			<th>Actions</th>
+		</tr>
+		<tr class="row" th:each="userAttendedKeyValue: ${userAttendedMap}">
+			<td th:text="${userAttendedKeyValue.key.getName()}"></td>
+			<td th:text="${userAttendedKeyValue.value}"></td>
+			<td><a th:href="'/dashboardClassUser?classId=' + ${class.getId()} + '&userId=' + ${userAttendedKeyValue.key.getId()}">Detail</a></td>
+		</tr>
+		
+	</table>
+</div>

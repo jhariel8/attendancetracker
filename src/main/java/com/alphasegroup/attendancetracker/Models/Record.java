@@ -7,33 +7,25 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class UserClass{
+public class Record{
     @Id
     @GeneratedValue
     private Integer id;
 	
 	@ManyToOne
+    @JoinColumn(name="classMeetingId")
+    private ClassMeeting classMeeting;
+	
+	@ManyToOne
     @JoinColumn(name="userId")
     private User user;
 	
-	@ManyToOne
-    @JoinColumn(name="classId")
-    private Class myClass;
-	
-	public UserClass(){
+	public Record(){
 		
 	}
 	
-	public UserClass(User user, Class myClass){
+	public Record(User user, ClassMeeting classMeeting){
 		this.user = user;
-		this.myClass = myClass;
-	}
-	
-	public User getUser(){
-		return this.user;
-	}
-	
-	public Class getMyClass(){
-		return this.myClass;
+		this.classMeeting = classMeeting;
 	}
 }

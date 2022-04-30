@@ -4,7 +4,10 @@
         <script src="/js/main.js" rel="script" type="text/javascript"></script>
 	</head>
 	<body>
-		<div id="header">Attendance Tracker 1.0</div>
+		<div id="header">
+			Attendance Tracker 1.0
+			<div class="logout" th:if="${user}"><a href="/logout">Log out</a></div>
+		</div>
 		<div id="container">
 			<div th:replace="${component}"></div>
 		</div>

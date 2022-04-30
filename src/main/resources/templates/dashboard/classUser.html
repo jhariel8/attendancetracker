@@ -1,0 +1,13 @@
+<div id="dashboard">
+	<table id="table">
+		<tr class="row">
+			<th>Meeting ID</th>
+			<th>Attended</th>
+		</tr>
+		<tr class="row" th:each="userAttendedKeyValue: ${userAttendedMap}">
+			<td th:text="${userAttendedKeyValue.key.getId()}"></td>
+			<td th:text="${userAttendedKeyValue.value}"></td>
+		</tr>
+		
+	</table>
+</div>

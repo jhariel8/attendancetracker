@@ -17,9 +17,15 @@ public class Class {
 	private User teacher;
 	
     private String name;
+	
+	private Integer studentCount;
 
 	public Integer getId() {
         return this.id;
+    }
+	
+	public Integer getStudentCount() {
+        return this.studentCount;
     }
 	
 	public User getTeacher() {
@@ -36,6 +42,10 @@ public class Class {
     
     public void setName(String name) {
         this.name = name;
+    }
+	
+    public void setStudentCount(Integer studentCount) {
+        this.studentCount = studentCount;
     }
 
 }

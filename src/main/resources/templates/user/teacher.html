@@ -1,15 +1,31 @@
-<div th:text="'Welcome teacher, ' + ${user.getName()} + '!'"></div>
-<div>Do teacher stuffs here...</div>
+<div id="teacher">
+	<div th:text="'Welcome teacher, ' + ${user.getName()} + '!'"></div>
 
 
-<div>
-	<div th:each="class: ${classes}">
-		Name: <p th:text="${class.getName()}"></p>
-		Id: <p th:text="${class.getId()}"></p>
-		
-		<form method="post" action="/teacher/addMeeting">
-			<input type="hidden" name="classId" th:value="${class.getId()}"/>
-			<input type="submit" value="add meeting"/>
-		</form>
-	</div>
+	<table id="table">
+		<tr class="row">
+			<th>Class Name</th>
+			<th>Students</th>
+			<th>Actions</th>
+		</tr>
+		<tr class="row" th:each="classKeyValuePair: ${classesHashMap}">
+			<td th:text="${classKeyValuePair.key.getName()} + '  (ID: ' + ${classKeyValuePair.key.getId()} + ')'"></td>
+			<td th:text="${classKeyValuePair.key.getStudentCount()}"></td>
+			<td><a th:href="'/dashboardClass?classId=' + ${classKeyValuePair.key.getId()}">View</a> | <a th:href="'/teacher/addMeeting?classId=' + ${classKeyValuePair.key.getId()}">New Meeting</a></td>
+			
+			<!--Previous Meetings:
+			<div>
+				<div th:each="meeting: ${classKeyValuePair.value}">
+					Meeting Id: <h3 th:text="${meeting.getId()}"></h3>
+				</div>
+			</div>-->
+			
+			<!--
+			<form method="post" action="/teacher/addMeeting">
+				<input type="hidden" name="classId" th:value="${classKeyValuePair.key.getId()}"></input>
+				<input type="submit" value="add meeting"></input>
+			</form>
+			-->
+		</tr>
+	</table>
 </div>

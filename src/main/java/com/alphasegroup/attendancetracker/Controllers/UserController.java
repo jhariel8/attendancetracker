@@ -3,13 +3,20 @@ package com.alphasegroup.attendancetracker.Controllers;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import com.alphasegroup.attendancetracker.DataAccess.UserRepository;
+import com.alphasegroup.attendancetracker.DataAccess.UserClassRepository;
 import com.alphasegroup.attendancetracker.DataAccess.ClassRepository;
+import com.alphasegroup.attendancetracker.DataAccess.ClassMeetingRepository;
+import com.alphasegroup.attendancetracker.DataAccess.RecordRepository;
 import com.alphasegroup.attendancetracker.Models.ClassMeeting;
 import com.alphasegroup.attendancetracker.Models.Section;
 import com.alphasegroup.attendancetracker.Models.User;
 import com.alphasegroup.attendancetracker.Models.Class;
+import com.alphasegroup.attendancetracker.Models.UserClass;
+import com.alphasegroup.attendancetracker.Models.Record;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,10 +37,16 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
+	private UserClassRepository userClassRepository;
+	@Autowired
 	private ClassRepository classRepository;
+	@Autowired
+	private ClassMeetingRepository classMeetingRepository;
+	@Autowired
+	private RecordRepository recordRepository;
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String generateClassMeeting1(
+	public String homePage(
 	Model model,
 	HttpServletRequest request){
 		User user = (User)request.getSession().getAttribute("user");
@@ -46,7 +59,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public String generateClassMeeting(
+	public String login(
 	@RequestParam(name="username", required=true) String username,
 	@RequestParam(name="password", required=true) String password,
 	Model model,
@@ -79,9 +92,50 @@ public class UserController {
 				model.addAttribute("classes", classes);
 			}else if(user.getType().equals("teacher")){
 				List<Class> classes = classRepository.findByTeacher(user);
-				model.addAttribute("classes", classes);
+				Map<Class, List<ClassMeeting>> classesHashMap = new HashMap<Class, List<ClassMeeting>>();
+				for(Class myClass : classes){
+					classesHashMap.put(myClass, classMeetingRepository.findByMyClass(myClass));
+				}
+				model.addAttribute("classesHashMap", classesHashMap);
+			}else if(user.getType().equals("student")){
+				List<UserClass> userClasses = userClassRepository.findByUser(user);
+				Map<Class, Integer> classAttendedCountMap = new HashMap<Class, Integer>();
+				Map<Class, Double> classAttendedPercentMap = new HashMap<Class, Double>();
+				Map<Class, Integer> classMeetingTotalMap = new HashMap<Class, Integer>();
+				for(UserClass userClass : userClasses){
+					Class myClass = userClass.getMyClass();
+					List<ClassMeeting> classMeetings = classMeetingRepository.findByMyClass(myClass);
+					Integer count = 0;
+					Double percent = new Double(100);
+					for(ClassMeeting classMeeting : classMeetings){
+						List<Record> records = recordRepository.findByClassMeetingAndUser(classMeeting, user);
+						if(records.size() > 0){
+							count++;
+						}
+					}
+					if(classMeetings.size() > 0){
+						percent = 100*(new Double(count))/classMeetings.size();
+					}
+					classAttendedCountMap.put(myClass, count);
+					classAttendedPercentMap.put(myClass, percent);
+					classMeetingTotalMap.put(myClass, classMeetings.size());
+				}
+				
+				model.addAttribute("userClasses", userClasses);
+				model.addAttribute("classAttendedCountMap", classAttendedCountMap);
+				model.addAttribute("classAttendedPercentMap", classAttendedPercentMap);
+				model.addAttribute("classMeetingTotalMap", classMeetingTotalMap);
+				
 			}
 		}
 		return "main.html";
+	}
+	
+	@RequestMapping(value="/logout")
+	public String logout(
+	Model model,
+	HttpServletRequest request){
+		request.getSession().setAttribute("user", null);
+		return "redirect:/";
 	}
 }

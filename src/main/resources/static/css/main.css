@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+a, a:hover, a:active{
+	color: #000;
+	text-decoration: underline;
+}
+
 html{
 	padding: 0px;
 	margin: 0px;
@@ -15,6 +20,10 @@ body{
 	background: #ff7700;
 	padding: 20px;
 	box-sizing: border-box;
+}
+
+#header .logout{
+	float:right;
 }
 
 #footer{
@@ -54,7 +63,7 @@ body{
 	
 }
 
-#loginForm input{
+#loginForm input, input, select, textarea{
 	all: unset;
 	border: 1px solid #ff7700;
 	border-radius: 3px;
@@ -63,7 +72,80 @@ body{
 	font-size: 12px;
 }
 
-#loginForm input[type=submit]{
+#loginForm input[type=submit], input[type=submit]{
 	padding: 10px 20px 10px 20px;
 	cursor: hand;
 }
+
+#admin #table{
+	margin-top:10px;
+	width:100%;
+}
+
+#admin #table .row td, #admin #table .row th{
+	padding: 10px;
+}
+
+#admin #table .row:nth-child(even){
+	background: #ffca9c;
+}
+
+#admin #table .row:nth-child(odd){
+	background: #fff5ec;
+}
+
+#teacher #table{
+	margin-top:10px;
+	width:100%;
+}
+
+#teacher #table .row td, #teacher #table .row th{
+	padding: 10px;
+}
+
+#teacher #table .row:nth-child(even){
+	background: #ffca9c;
+}
+
+#teacher #table .row:nth-child(odd){
+	background: #fff5ec;
+}
+
+#dashboard #table{
+	margin-top:10px;
+	width:100%;
+}
+
+#dashboard #table .row td, #dashboard #table .row th{
+	padding: 10px;
+}
+
+#dashboard #table .row:nth-child(even){
+	background: #ffca9c;
+}
+
+#dashboard #table .row:nth-child(odd){
+	background: #fff5ec;
+}
+
+#student #table{
+	margin-top:10px;
+	width:100%;
+}
+
+#student #table .row td, #student #table .row th{
+	padding: 10px;
+}
+
+#student #table .row:nth-child(even){
+	background: #ffca9c;
+}
+
+#student #table .row:nth-child(odd){
+	background: #fff5ec;
+}
+
+
+
+
+

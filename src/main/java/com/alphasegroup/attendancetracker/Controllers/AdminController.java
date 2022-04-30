@@ -37,7 +37,7 @@ public class AdminController {
 
 	
 	@RequestMapping(value="/admin/addClass", method=RequestMethod.POST)
-	public String generateClassMeeting(
+	public String addClass(
 	@RequestParam(name="className", required=true) String className,
 	@RequestParam(name="teacherId", required=true) Integer teacherId,
 	@RequestParam(name="studentIds", required=true) String studentIds,
@@ -51,22 +51,27 @@ public class AdminController {
 		Class newClass = new Class();
 		newClass.setName(className);
 		newClass.setTeacher(teacher);
-		classRepository.save(newClass);
+		
 		
 		Integer classId = newClass.getId();
 		String[] arrStudentIds = studentIds.split("\n");
 		
+		Integer count = 0;
 		if(arrStudentIds.length > 0){
 			for (String studentId : arrStudentIds){
 				System.out.println(studentId.strip());
-				
 				User student = userRepository.findById(new Integer(Integer.parseInt(studentId.strip()))).get();
 				if(student.getType().equals("student")){
 					UserClass userClass = new UserClass(student,newClass);
 					userClassRepository.save(userClass);
+					count++;
 				}
 			}
 		}
+		
+		newClass.setStudentCount(count);
+		classRepository.save(newClass);
+		
 		return "redirect:/";
 	}
 	

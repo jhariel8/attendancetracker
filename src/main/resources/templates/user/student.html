@@ -1,2 +1,19 @@
-<div th:text="'Welcome student, ' + ${user.getName()} + '!'"></div>
-<div>Do student stuffs here...</div>
+<div id="student">
+	<div th:text="'Welcome student, ' + ${user.getName()} + '!'"></div>
+
+	<table id="table">
+		<tr class="row">
+			<th>Class Name</th>
+			<th>Number of Attended</th>
+			<th>Percentage of Attended </th>
+			<th>Actions</th>
+		</tr>
+		<tr class="row" th:each="userClass: ${userClasses}">
+			<td th:text="${userClass.getMyClass().getName()}"></td>
+			<td th:text="${classAttendedCountMap.get(userClass.getMyClass())} + '/' + ${classMeetingTotalMap.get(userClass.getMyClass())}"></td>
+			<td th:text="${classAttendedPercentMap.get(userClass.getMyClass())} + '%'"></td>
+			<td><a th:href="'/dashboardClassUser?classId=' + ${userClass.getMyClass().getId()} + '&userId=' + ${user.getId()}">Detail</a></td>
+		</tr>
+		
+	</table>
+</div>

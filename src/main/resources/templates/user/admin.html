@@ -1,18 +1,37 @@
-<div th:text="'Welcome admin, ' + ${user.getName()} + '!'"></div>
+<div id="admin">
+	<div th:text="'Welcome admin, ' + ${user.getName()} + '! Below is a list of classes:'"></div>
 
 
-<div th:each="class: ${classes}" th:text="${class.getName()}+'  (Teacher: '+${class.getTeacher().getName()}+')'"></div>
-	
-	
-	
-<form method="post" action="/admin/addClass">
-	Class Name:
-	<input type="text" name="className"/>
-	Teacher:
-	<select name="teacherId">
-	   <option th:each="teacher: ${teachers}" th:value="${teacher.getId()}" th:text="${teacher.getName()}+'  (ID:'+${teacher.getId()}+')'">Volvo</option>
-	</select>
-	Student IDs (separated by line):
-	<textarea name="studentIds"></textarea>
-	<input type="submit" value="Add Class"/>
-</form>
+	<table id="table">
+		<tr class="row">
+			<th>Class Name</th>
+			<th>Teacher</th>
+			<th>Students</th>
+			<th>Actions</th>
+		</tr>
+		<tr class="row" th:each="class: ${classes}">
+			<td th:text="${class.getName()} + '  (ID: ' + ${class.getId()} + ')'"></td>
+			<td th:text="${class.getTeacher().getName()} + '  (ID: ' + ${class.getTeacher().getId()} + ')'"></td>
+			<td th:text="${class.getStudentCount()}"></td>
+			<td><a th:href="'/dashboardClass?classId=' + ${class.getId()}">View</a> | Modify | Delete</td>
+		</tr>
+	</table>
+		
+	<br/>
+	<center>
+		<form method="post" action="/admin/addClass">
+			Class Name:<br/><input type="text" name="className"  style="width:400px;margin-top:10px;"/>
+			<br/>
+			Teacher:<br/>
+			<select name="teacherId"  style="width:400px;margin-top:10px;">
+			   <option th:each="teacher: ${teachers}" th:value="${teacher.getId()}" th:text="${teacher.getName()}+'  (ID:'+${teacher.getId()}+')'">Volvo</option>
+			</select>
+			<br/>
+			Student IDs (separated by line):
+			<br/>
+			<textarea name="studentIds" style="width:400px;margin-top:10px;"></textarea>
+			<br/>
+			<input type="submit" value="Add Class"/>
+		</form>
+	</center>
+</div>

@@ -20,12 +20,25 @@ public class ClassMeeting {
 
     private Timestamp timestamp;
 
+	
+	@ManyToOne
+    @JoinColumn(name="classId")
+	private Class myClass;
+	
     @ManyToOne
     @JoinColumn(name="sectionid")
     private Section section;
 
     private Integer duration;
-
+	
+	public void setMyClass(Class myClass){
+		this.myClass = myClass;
+	}
+	
+	public Class getMyClass(){
+		return this.myClass;
+	}
+	
     public Timestamp getTimestamp() {
         return timestamp;
     }
